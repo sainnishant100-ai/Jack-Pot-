@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jack Pot - Premium App Store</title>
+    <style>
+        /* --- CSS VARIABLES --- */
+        :root {
+            --primary-gold: #D4AF37;
+            --bright-gold: #FFD700;
+            --primary-red: #c0392b;
+            --bright-red: #ff0000;
+            --bg-black: #0f0f0f;
+            --card-bg: #1a1a1a;
+            --text-white: #f1f1f1;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-black);
+            color: var(--text-white);
+            overflow-x: hidden;
+        }
+
+        /* --- ANIMATIONS --- */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes goldGlow {
+            0% { text-shadow: 0 0 5px #D4AF37; }
+            50% { text-shadow: 0 0 20px #FFD700, 0 0 30px #FFD700; }
+            100% { text-shadow: 0 0 5px #D4AF37; }
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 3D Phone Animation (Floating & Rotating) */
+        @keyframes floatPhone {
+            0% { transform: perspective(1000px) rotateY(-10deg) rotateX(5deg) translateY(0px); }
+            50% { transform: perspective(1000px) rotateY(-5deg) rotateX(5deg) translateY(-20px); }
+            100% { transform: perspective(1000px) rotateY(-10deg) rotateX(5deg) translateY(0px); }
+        }
+
+        /* Header */
+        header {
+            background-color: #000;
+            border-bottom: 2px solid var(--primary-gold);
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.8);
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary-gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: goldGlow 3s infinite alternate; 
+        }
+
+        nav a {
+            color: var(--text-white);
+            margin-left: 20px;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--primary-gold);
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 60px 20px 40px 20px;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.7), var(--bg-black)), url('https://source.unsplash.com/random/1600x900/?gaming,dark');
+            background-size: cover;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            color: var(--text-white);
+            animation: slideDown 1s ease-out;
+        }
+
+        .hero h1 span { color: var(--primary-gold); }
+        .hero p { color: #ccc; animation: slideDown 1.2s ease-out; }
+
+        /* --- 3D PHONE SECTION --- */
+        .phone-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .phone-mockup {
+            width: 280px;
+            height: 500px;
+            background: #000;
+            border-radius: 40px;
+            border: 8px solid #333;
+            /* 3D Effects */
+            box-shadow: 
+                -15px 15px 30px rgba(0,0,0,0.5), 
+                inset 0 0 20px rgba(255, 255, 255, 0.1),
+                0 0 0 2px var(--primary-gold); /* Gold Border Outline */
+            position: relative;
+            animation: floatPhone 4s ease-in-out infinite;
+            overflow: hidden;
+        }
+
+        /* Notch (Camera area) */
+        .notch {
+            width: 120px;
+            height: 25px;
+            background: #000;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+            z-index: 10;
+        }
+
+        /* Phone Screen Content */
+        .screen-content {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1a1a1a, #000);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+        }
+
+        .screen-logo {
+            font-size: 2rem;
+            color: var(--primary-gold);
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        }
+
+        .screen-text {
+            font-size: 1rem;
+            color: #888;
+        }
+        
+        .download-icon {
+            font-size: 3rem;
+            color: var(--primary-red);
+            margin-top: 20px;
+            animation: fadeInUp 1s infinite alternate;
+        }
+
+        /* Search Box below phone */
+        .search-box {
+            margin-top: 20px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .search-box input {
+            padding: 15px;
+            width: 300px;
+            border: 2px solid var(--primary-gold);
+            background: #222;
+            color: white;
+            border-radius: 30px 0 0 30px;
+            outline: none;
+        }
+
+        .search-box button {
+            padding: 15px 30px;
+            background-color: var(--primary-gold);
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            border-radius: 0 30px 30px 0;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            color: var(--primary-gold);
+            border-left: 5px solid var(--primary-red);
+            padding-left: 15px;
+            margin-bottom: 30px;
+            font-size: 2rem;
+        }
+
+        /* App Grid */
+        .app-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 30px;
+        }
+
+        /* App Card */
+        .app-card {
+            background: var(--card-bg);
+            border: 1px solid #333;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            position: relative;
+            opacity: 0; 
+            animation: fadeInUp 0.8s ease-out forwards;
+            transition: transform 0.3s;
+        }
+
+        .app-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-gold);
+        }
+
+        .app-card:nth-child(1) { animation-delay: 0.1s; }
+        .app-card:nth-child(2) { animation-delay: 0.2s; }
+        .app-card:nth-child(3) { animation-delay: 0.3s; }
+        .app-card:nth-child(4) { animation-delay: 0.4s; }
+        .app-card:nth-child(5) { animation-delay: 0.5s; }
+        .app-card:nth-child(6) { animation-delay: 0.6s; }
+
+        .app-icon {
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, #333, #000);
+            border: 2px solid var(--primary-gold);
+            border-radius: 20px;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: var(--primary-gold);
+        }
+
+        .app-title { margin: 10px 0; color: var(--text-white); }
+
+        .rating-box { margin: 8px 0 15px 0; }
+        .stars { color: var(--bright-gold); letter-spacing: 2px; }
+        .rating-text { color: #999; font-size: 0.85rem; display: block; margin-top: 5px; }
+
+        .download-btn {
+            background-color: var(--primary-red);
+            color: white;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            display: inline-block;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .download-btn:hover {
+            background-color: transparent;
+            border: 1px solid var(--bright-red);
+            color: var(--bright-red);
+        }
+
+        /* Footer & Privacy */
+        .privacy-section {
+            background-color: #111;
+            padding: 50px 20px;
+            margin-top: 80px;
+            border-top: 3px solid var(--primary-gold);
+        }
+        
+        .privacy-content { max-width: 800px; margin: 0 auto; color: #bbb; }
+        .privacy-content h2 { color: var(--primary-gold); }
+
+        footer {
+            background-color: black;
+            text-align: center;
+            padding: 25px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">JACK POT</div>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#apps">Top Apps</a>
+            <a href="#privacy">Privacy</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <h1>Welcome to <span>JACK POT</span></h1>
+        <p>Premium Apps & Games Download Center</p>
+    </div>
+
+    <!-- 3D PHONE SECTION ADDED HERE -->
+    <div class="phone-section">
+        <div class="phone-mockup">
+            <div class="notch"></div>
+            <div class="screen-content">
+                <div class="screen-logo">JACK POT</div>
+                <p class="screen-text">Verified Store</p>
+                <div class="download-icon">⬇</div>
+                <p style="font-size:0.8rem; margin-top:10px; color:#555;">Safe & Fast</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search Box -->
+    <div class="search-box">
+        <input type="text" placeholder="Search Apps...">
+        <button>SEARCH</button>
+    </div>
+
+    <!-- Apps Section -->
+    <div class="container" id="apps">
+        <h2 class="section-title">Most Popular</h2>
+        <div class="app-grid">
+            
+            <!-- App 1 -->
+            <div class="app-card">
+                <div class="app-icon">JP</div>
+                <h3 class="app-title">JackPot Casino</h3>
+                <div class="rating-box">
+                    <span class="stars">★★★★★</span>
+                    <span class="rating-text">4.9 | 10M+ Downloads</span>
+                </div>
+                <a href="#" class="download-btn">DOWNLOAD</a>
+            </div>
+
+            <!-- App 2 -->
+            <div class="app-card">
+                <div class="app-icon">PUB</div>
+                <h3 class="app-title">Battle Royal</h3>
+                <div class="rating-box">
+                    <span class="stars">★★★★☆</span>
+                    <span class="rating-text">4.5 | 50M+ Downloads</span>
+                </div>
+                <a href="#" class="download-btn">DOWNLOAD</a>
+            </div>
+
+            <!-- App 3 -->
+            <div class="app-card">
+                <div class="app-icon">VPN</div>
+                <h3 class="app-title">Turbo VPN Pro</h3>
+                <div class="rating-box">
+                    <span class="stars">★★★★★</span>
+                    <span class="rating-text">5.0 | 1M+ Downloads</span>
+                </div>
+                <a href="#" class="download-btn">DOWNLOAD</a>
+            </div>
+
+            <!-- App 4 -->
+            <div class="app-card">
+                <div class="app-icon">VID</div>
+                <h3 class="app-title">HD Editor</h3>
+                <div class="rating-box">
+                    <span class="stars">★★★★☆</span>
+                    <span class="rating-text">4.2 | 500k Downloads</span>
+                </div>
+                <a href="#" class="download-btn">DOWNLOAD</a>
+            </div>
+
+            <!-- App 5 -->
+            <div class="app-card">
+                <div class="app-icon">WA</div>
+                <h3 class="app-title">Gold WhatsApp</h3>
+                <div class="rating-box">
+                    <span class="stars">★★★★★</span>
+                    <span class="rating-text">4.8 | 8M+ Downloads</span>
+                </div>
+                <a href="#" class="download-btn">DOWNLOAD</a>
+            </div>
+
+            <!-- App 6 -->
+            <div class="app-card">
+                <div class="app-icon">CR</div>
+                <h3 class="app-title">Car Racing 3D</h3>
+                <div class="rating-box">
+                    <span class="stars">★★★☆☆</span>
+                    <span class="rating-text">3.9 | 100k Downloads</span>
+                </div>
+                <a href="#" class="download-btn">DOWNLOAD</a>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Privacy Policy Section -->
+    <div class="privacy-section" id="privacy">
+        <div class="privacy-content">
+            <h2>Privacy & Policy</h2>
+            <p><strong>Last Updated: October 2024</strong></p>
+            <p>Welcome to Jack Pot. This Privacy Policy explains how we handle your information.</p>
+            <h3>1. Data Collection</h3>
+            <p>We do not collect personal data. We only count the number of downloads anonymously.</p>
+            <h3>2. Security</h3>
+            <p>We try to provide safe links, but we recommend scanning all files with an antivirus before installing.</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Jack Pot. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
